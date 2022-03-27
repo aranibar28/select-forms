@@ -1,1 +1,60 @@
-<p>selector-pages works!</p>
+<h1>Selectores Anidados</h1>
+<hr />
+<form [formGroup]="myForm" (ngSubmit)="guardar()">
+  <div iv class="row mb-3">
+    <!-- REGIÓN -->
+    <div class="col">
+      <label class="form-label">Continente: </label>
+      <select class="form-control" formControlName="region">
+        <option value="">Seleccione Continente</option>
+        <option *ngFor="let region of regiones" [value]="region | lowercase">
+          {{ region }}
+        </option>
+      </select>
+    </div>
+  </div>
+
+  <div class="row mb-3" *ngIf="countries.length !== 0">
+    <!-- PAÍS -->
+    <div class="col">
+      <label class="form-label">País: </label>
+      <select class="form-control" formControlName="country">
+        <option value="">Seleccione País</option>
+        <option *ngFor="let country of countries" [value]="country.alpha3Code">
+          {{ country.name }}
+        </option>
+      </select>
+    </div>
+  </div>
+
+  <div class="row mb-3" *ngIf="fronters.length !== 0">
+    <!-- FRONTERAS -->
+    <div class="col">
+      <label class="form-label">Fronteras: </label>
+      <select class="form-control" formControlName="fronters">
+        <option value="">Seleccione País Fronterizo</option>
+        <option *ngFor="let fronter of fronters" [value]="fronter.alpha3Code">
+          {{ fronter.name }}
+        </option>
+      </select>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="loading">
+    <div class="col">
+      <div class="alert alert-warning">Cargando...</div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <button class="btn btn-primary float-end" type="submit">Guardar</button>
+    </div>
+  </div>
+</form>
+
+<br />
+
+<h5>Formulario</h5>
+<pre>Valid: {{ myForm.valid }}</pre>
+<pre>{{ myForm.value | json }}</pre>
